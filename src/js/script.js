@@ -16,18 +16,18 @@ function render(){
 function initActions(){
   booksList.addEventListener('dblclick', function(event){
     const bookImageID = event.target.offsetParent.getAttribute('data-id');
-
+    console.log(event.target.offsetParent);
     event.preventDefault();
 
-    //if(event.target.classList.contains('.book__image')){
-    if(!favoriteBooks.includes(bookImageID)){
-      event.target.offsetParent.classList.add('favorite');
-      favoriteBooks.push(bookImageID);
-    } else {
-      favoriteBooks.splice(favoriteBooks.indexOf(bookImageID), 1);
-      event.target.offsetParent.classList.remove('favorite');
+    if(event.target.offsetParent.classList.contains('book__image')){
+      if(!favoriteBooks.includes(bookImageID)){
+        event.target.offsetParent.classList.add('favorite');
+        favoriteBooks.push(bookImageID);
+      } else {
+        favoriteBooks.splice(favoriteBooks.indexOf(bookImageID), 1);
+        event.target.offsetParent.classList.remove('favorite');
+      }
     }
-    //}
   });
 }
 
