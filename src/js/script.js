@@ -43,9 +43,8 @@ function initActions(){
     filterBooks();
   });
 }
-/* [IN PROGRESS] filtering book list according to checked filters */
 function filterBooks(){
-  for(let book in dataSource.books){
+  for(let book of dataSource.books){
     let shouldBeHidden = false;
 
     for(const filter of filters){
@@ -55,6 +54,7 @@ function filterBooks(){
       }
     }
     const bookDOM = document.querySelector('.book__image[data-id="' + book.id + '"]');
+
     if(shouldBeHidden){
       bookDOM.classList.add('hidden');
     } else {
