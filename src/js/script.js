@@ -54,13 +54,10 @@ function filterBooks(){
         break;
       }
     }
+    const bookDOM = document.querySelector('.book__image[data-id="' + book.id + '"]');
     if(shouldBeHidden){
-      const bookDOM = document.querySelector('.book__image[data-id="' + dataSource.books[book].id.value + '"]');
-
       bookDOM.classList.add('hidden');
     } else {
-      const bookDOM = document.querySelector('.book__image[data-id="' + dataSource.books[book].id.value + '"]');
-
       bookDOM.classList.remove('hidden');
     }
   }
