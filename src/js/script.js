@@ -7,8 +7,11 @@ const booksList = document.querySelector('.books-list'),
 function render(){
   const bookTemplate = Handlebars.compile(document.querySelector('#template-book').innerHTML);
 
-  for(let book in dataSource.books){
-    const generatedHTML = bookTemplate(dataSource.books[book]),
+  for(let book of dataSource.books){
+    book.ratingBgc = determineRatingBgc(book.rating),
+    book.ratingWidth = book.rating * 10;
+
+    const generatedHTML = bookTemplate(book),
       generatedDOM = utils.createDOMFromHTML(generatedHTML);
 
     booksList.appendChild(generatedDOM);
@@ -61,6 +64,21 @@ function filterBooks(){
       bookDOM.classList.remove('hidden');
     }
   }
+}
+function determineRatingBgc(rating){
+  let ratingBackground = '';
+
+  if(rating < 6){
+    ratingBackground = 'linear-gradient(to bottom, #fefcea 0%, #f1da36 100%)';
+  } else if(rating > 6 && rating <= 8){
+    ratingBackground = 'linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)';
+  } else if(rating > 8 && rating <= 9){
+    ratingBackground = 'linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
+  } else if(rating > 9){
+    ratingBackground = 'linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
+  }
+
+  return ratingBackground;
 }
 
 render();
