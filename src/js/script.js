@@ -51,7 +51,6 @@ class BooksList {
       const generatedHTML = opt.templates.bookTemplate(book),
         generatedDOM = utils.createDOMFromHTML(generatedHTML);
 
-      console.log(this.dom.booksList);
       this.dom.booksList.appendChild(generatedDOM);
     }
   }
@@ -79,7 +78,7 @@ class BooksList {
           arrays.filters.splice(arrays.filters.indexOf(event.target.value), 1);
         }
       }
-      console.log(this);
+      console.log('this:',this);
       this.filterBooks();
     });
   }
