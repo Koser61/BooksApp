@@ -30,32 +30,42 @@ const arrays = {
 
 class BooksList {
   constructor() {
-    this.initData();
-    this.getElements();
-    this.render();
-    this.initActions();
+    const thisBooksList = this;
+
+    thisBooksList.initData();
+    thisBooksList.getElements();
+    thisBooksList.render();
+    thisBooksList.initActions();
   }
   initData() {
-    this.data = dataSource.books;
+    const thisBooksList = this;
+
+    thisBooksList.data = dataSource.books;
   }
   getElements() {
-    this.dom = {};
-    this.dom.booksList = document.querySelector(opt.select.booksList);
-    this.dom.filterForm = document.querySelector(opt.select.filterForm);
+    const thisBooksList = this;
+
+    thisBooksList.dom = {};
+    thisBooksList.dom.booksList = document.querySelector(opt.select.booksList);
+    thisBooksList.dom.filterForm = document.querySelector(opt.select.filterForm);
   }
   render(){
-    for(let book of this.data){
-      book.ratingBgc = this.determineRatingBgc(book.rating),
+    const thisBooksList = this;
+
+    for(let book of thisBooksList.data){
+      book.ratingBgc = thisBooksList.determineRatingBgc(book.rating),
       book.ratingWidth = book.rating * 10;
 
       const generatedHTML = opt.templates.bookTemplate(book),
         generatedDOM = utils.createDOMFromHTML(generatedHTML);
 
-      this.dom.booksList.appendChild(generatedDOM);
+      thisBooksList.dom.booksList.appendChild(generatedDOM);
     }
   }
   initActions(){
-    this.dom.booksList.addEventListener('dblclick', function(event){
+    const thisBooksList = this;
+
+    thisBooksList.dom.booksList.addEventListener('dblclick', function(event){
       const bookImageID = event.target.offsetParent.getAttribute(opt.select.dataID);
 
       event.preventDefault();
@@ -70,7 +80,7 @@ class BooksList {
         }
       }
     });
-    this.dom.filterForm.addEventListener('click', function(event){
+    thisBooksList.dom.filterForm.addEventListener('click', function(event){
       if(event.target.tagName === 'INPUT' && event.target.type === 'checkbox' && event.target.name === 'filter'){
         if(event.target.checked){
           arrays.filters.push(event.target.value);
@@ -78,12 +88,13 @@ class BooksList {
           arrays.filters.splice(arrays.filters.indexOf(event.target.value), 1);
         }
       }
-      console.log('this:',this);
-      this.filterBooks();
+      thisBooksList.filterBooks(); // this != thisBooksList
     });
   }
   filterBooks(){
-    for(let book of this.data){
+    const thisBooksList = this;
+
+    for(let book of thisBooksList.data){
       const bookDOM = document.querySelector('.book__image[data-id="' + book.id + '"]');
       let shouldBeHidden = false;
 
@@ -93,7 +104,7 @@ class BooksList {
           break;
         }
       }
-
+      console.log(shouldBeHidden);
       if(shouldBeHidden){
         bookDOM.classList.add(opt.classNames.hidden);
       } else {
